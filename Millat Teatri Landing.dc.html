@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Berlin Collection';src:url('uploads/Berlin%20Collection.ttf') format('truetype');font-display:swap;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:#0b0708;color:#f0e6d2;font-family:'Cormorant Garamond',Georgia,serif;overflow-x:hidden;}
+a{color:#d4af5a;text-decoration:none;}
+a:hover{color:#f0e6d2;}
+@keyframes curtainL{to{transform:translateX(-102%);}}
+@keyframes curtainR{to{transform:translateX(102%);}}
+@keyframes curtainFade{to{opacity:0;visibility:hidden;}}
+@keyframes riseIn{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+@keyframes glowPulse{0%,100%{opacity:.55;}50%{opacity:.9;}}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@keyframes flicker{0%,100%{opacity:.85;}45%{opacity:.6;}55%{opacity:.95;}}
+</style>
+</helmet>
+
+<sc-if value="{{ showCurtain }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ skipCurtain }}" style="position:fixed;inset:0;z-index:1000;cursor:pointer;animation:curtainFade .6s ease 2.6s forwards;">
+  <div style="position:absolute;top:0;bottom:0;left:0;width:52%;animation:curtainL 1.4s cubic-bezier(.7,0,.3,1) 1.1s forwards;background:repeating-linear-gradient(90deg,#5c0f14 0 26px,#8a1a20 26px 46px,#6d1318 46px 72px),linear-gradient(180deg,#3d0a0d,#7a161c);background-blend-mode:multiply;box-shadow:inset -40px 0 60px rgba(0,0,0,.7);"></div>
+  <div style="position:absolute;top:0;bottom:0;right:0;width:52%;animation:curtainR 1.4s cubic-bezier(.7,0,.3,1) 1.1s forwards;background:repeating-linear-gradient(90deg,#6d1318 0 26px,#8a1a20 20px 46px,#5c0f14 46px 72px),linear-gradient(180deg,#3d0a0d,#7a161c);background-blend-mode:multiply;box-shadow:inset 40px 0 60px rgba(0,0,0,.7);"></div>
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;animation:curtainFade .5s ease 1s forwards;">
+    <img src="uploads/Oq%20fonda%20ishlatish%20uchun%20yozuvsiz.png" alt="" style="width:90px;filter:brightness(0) invert(1);mix-blend-mode:screen;opacity:.95;">
+    <div style="font-family:'Berlin Collection',serif;font-size:34px;letter-spacing:.14em;color:#f0e6d2;text-shadow:0 0 30px rgba(212,175,90,.5);">Millat teatri</div>
+    <div style="font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:rgba(240,230,210,.55);">Parda ochilmoqda…</div>
+  </div>
+</div>
+</sc-if>
+
+<nav data-screen-label="Navigatsiya" style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:14px 40px;background:linear-gradient(180deg,rgba(11,7,8,.92),rgba(11,7,8,.75));backdrop-filter:blur(12px);border-bottom:1px solid rgba(212,175,90,.22);">
+  <a href="#bosh" style="display:flex;align-items:center;gap:12px;">
+    <img src="uploads/Oq%20fonda%20ishlatish%20uchun%20yozuvsiz.png" alt="Millat teatri logotipi" style="width:34px;filter:brightness(0) invert(1);mix-blend-mode:screen;">
+    <span style="font-family:'Berlin Collection',serif;font-size:22px;color:#f0e6d2;letter-spacing:.06em;">Millat teatri</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:26px;font-size:16.5px;letter-spacing:.04em;">
+    <a href="#haqida" style="color:rgba(240,230,210,.85);" style-hover="color:#d4af5a;">Teatr haqida</a>
+    <a href="#afisha" style="color:rgba(240,230,210,.85);" style-hover="color:#d4af5a;">Afisha</a>
+    <a href="#truppa" style="color:rgba(240,230,210,.85);" style-hover="color:#d4af5a;">Truppa</a>
+    <a href="#yangiliklar" style="color:rgba(240,230,210,.85);" style-hover="color:#d4af5a;">Yangiliklar</a>
+    <a href="#kontakt" style="color:rgba(240,230,210,.85);" style-hover="color:#d4af5a;">Kontakt</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:18px;">
+    <div style="display:flex;gap:2px;border:1px solid rgba(212,175,90,.35);border-radius:20px;padding:3px;">
+      <sc-for list="{{ langs }}" as="lg" hint-placeholder-count="4">
+        <button onClick="{{ lg.pick }}" style="border:none;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;letter-spacing:.05em;padding:4px 10px;border-radius:14px;background:{{ lg.bg }};color:{{ lg.fg }};">{{ lg.label }}</button>
+      </sc-for>
+    </div>
+    <a href="#chipta" style="background:linear-gradient(135deg,#a01d24,#701216);color:#f0e6d2;padding:10px 22px;border-radius:2px;font-size:16px;font-weight:600;letter-spacing:.08em;border:1px solid rgba(212,175,90,.4);" style-hover="background:linear-gradient(135deg,#b8232b,#8a161c);color:#fff;">Chipta olish</a>
+  </div>
+</nav>
+
+<header id="bosh" data-screen-label="Hero" style="position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:140px 24px 90px;background:radial-gradient(ellipse 90% 60% at 50% -10%,rgba(160,29,36,.55),transparent 60%),radial-gradient(ellipse 60% 45% at 50% 108%,rgba(212,175,90,.16),transparent 65%),linear-gradient(180deg,#170a0c 0%,#0b0708 55%,#120809 100%);overflow:hidden;">
+  <div style="position:absolute;top:0;left:8%;width:340px;height:70%;background:linear-gradient(195deg,rgba(240,220,170,.10),transparent 70%);clip-path:polygon(45% 0,55% 0,100% 100%,0 100%);animation:flicker 7s ease-in-out infinite;pointer-events:none;"></div>
+  <div style="position:absolute;top:0;right:8%;width:340px;height:70%;background:linear-gradient(165deg,rgba(240,220,170,.10),transparent 70%);clip-path:polygon(45% 0,55% 0,100% 100%,0 100%);animation:flicker 8s ease-in-out 1.2s infinite;pointer-events:none;"></div>
+  <div style="height:36px;width:min(560px,80%);background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Cpath d='M18 5 L21.5 14.5 L31 18 L21.5 21.5 L18 31 L14.5 21.5 L5 18 L14.5 14.5 Z' fill='none' stroke='%23d4af5a' stroke-width='1.1'/%3E%3Ccircle cx='18' cy='18' r='1.6' fill='%23d4af5a'/%3E%3C/svg%3E&quot;);background-repeat:repeat-x;background-position:center;opacity:.7;animation:riseIn 1s ease .3s backwards;"></div>
+  <img src="uploads/Oq%20fonda%20ishlatish%20uchun%20yozuvsiz.png" alt="" style="width:110px;margin:34px 0 10px;filter:brightness(0) invert(1);mix-blend-mode:screen;opacity:.95;animation:riseIn 1s ease .45s backwards;">
+  <h1 style="font-family:'Berlin Collection',serif;font-weight:400;font-size:clamp(64px,10vw,150px);line-height:.95;margin:10px 0 0;color:#f0e6d2;text-shadow:0 0 60px rgba(160,29,36,.55);animation:riseIn 1.1s ease .6s backwards;">Millat teatri</h1>
+  <p style="font-size:clamp(20px,2.2vw,28px);font-style:italic;color:rgba(240,230,210,.8);max-width:640px;margin:22px 0 0;animation:riseIn 1.1s ease .8s backwards;">Sahna — millat ko&#8217;zgusi. Jahon mumtoz dramasi va o&#8217;zbek milliy ruhi bir sahnada.</p>
+  <div style="display:flex;gap:18px;margin-top:40px;flex-wrap:wrap;justify-content:center;animation:riseIn 1.1s ease 1s backwards;">
+    <a href="#afisha" style="background:linear-gradient(135deg,#a01d24,#701216);color:#f0e6d2;padding:16px 38px;font-size:19px;font-weight:600;letter-spacing:.1em;border:1px solid rgba(212,175,90,.4);border-radius:2px;box-shadow:0 8px 30px rgba(160,29,36,.35);" style-hover="box-shadow:0 8px 40px rgba(160,29,36,.6);color:#fff;">Afishani ko&#8217;rish</a>
+    <a href="#haqida" style="color:#d4af5a;padding:16px 38px;font-size:19px;font-weight:600;letter-spacing:.1em;border:1px solid rgba(212,175,90,.55);border-radius:2px;" style-hover="background:rgba(212,175,90,.1);">Teatr bilan tanishing</a>
+  </div>
+  <div style="height:36px;width:min(560px,80%);margin-top:44px;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Cpath d='M18 5 L21.5 14.5 L31 18 L21.5 21.5 L18 31 L14.5 21.5 L5 18 L14.5 14.5 Z' fill='none' stroke='%23d4af5a' stroke-width='1.1'/%3E%3Ccircle cx='18' cy='18' r='1.6' fill='%23d4af5a'/%3E%3C/svg%3E&quot;);background-repeat:repeat-x;background-position:center;opacity:.7;animation:riseIn 1s ease 1.15s backwards;"></div>
+</header>
+
+<div data-screen-label="Marquee" style="border-top:1px solid rgba(212,175,90,.3);border-bottom:1px solid rgba(212,175,90,.3);background:linear-gradient(90deg,#170a0c,#241014,#170a0c);overflow:hidden;padding:14px 0;white-space:nowrap;">
+  <div style="display:inline-flex;gap:56px;animation:marquee 28s linear infinite;font-family:'Berlin Collection',serif;font-size:24px;letter-spacing:.12em;color:rgba(212,175,90,.85);">
+    <sc-for list="{{ marqueeItems }}" as="m" hint-placeholder-count="8"><span style="display:inline-flex;align-items:center;gap:56px;">{{ m }}<span style="color:#a01d24;font-size:16px;">&#10022;</span></span></sc-for>
+  </div>
+</div>
+
+<section id="haqida" data-screen-label="Teatr haqida" style="position:relative;padding:110px 40px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:70px;align-items:center;">
+  <div style="position:relative;">
+    <div style="position:absolute;inset:-18px;border:1px solid rgba(212,175,90,.4);border-radius:200px 200px 4px 4px;pointer-events:none;"></div>
+    <div style="border-radius:190px 190px 2px 2px;overflow:hidden;height:520px;">
+      <image-slot id="teatr-bino" shape="rect" placeholder="Teatr binosi yoki sahna fotosi"></image-slot>
+    </div>
+  </div>
+  <div>
+    <div style="font-size:15px;letter-spacing:.35em;text-transform:uppercase;color:#a01d24;font-weight:700;margin-bottom:14px;">Teatr haqida</div>
+    <h2 style="font-family:'Berlin Collection',serif;font-weight:400;font-size:clamp(40px,4.5vw,62px);line-height:1.05;margin:0 0 24px;color:#f0e6d2;">San&#8217;at ostonasidan sahna sehriga</h2>
+    <p style="font-size:20px;line-height:1.65;color:rgba(240,230,210,.82);margin:0 0 18px;">Millat teatri — jahon mumtoz dramaturgiyasi va o&#8217;zbek milliy merosini bir sahnada uyg&#8217;unlashtiruvchi zamonaviy teatr. Shekspir fojialaridan Dostoyevskiy dramalarigacha, Qodiriy romanlaridan zamonaviy asarlargacha — har bir spektakl tomoshabinni sahna ichiga olib kiradi.</p>
+    <p style="font-size:20px;line-height:1.65;color:rgba(240,230,210,.82);margin:0 0 36px;">Bizning maqsadimiz — teatrni har bir oila uchun yaqin, har bir avlod uchun qadrli qilish.</p>
+    <div style="display:flex;gap:44px;border-top:1px solid rgba(212,175,90,.25);padding-top:28px;">
+      <sc-for list="{{ stats }}" as="st" hint-placeholder-count="3">
+        <div>
+          <div style="font-family:'Berlin Collection',serif;font-size:44px;color:#d4af5a;">{{ st.num }}</div>
+          <div style="font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,230,210,.6);">{{ st.label }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="afisha" data-screen-label="Afisha" style="position:relative;padding:100px 40px 120px;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(160,29,36,.28),transparent 65%),#0e0809;border-top:1px solid rgba(212,175,90,.18);">
+  <div style="max-width:1240px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:60px;">
+      <div style="font-size:15px;letter-spacing:.35em;text-transform:uppercase;color:#a01d24;font-weight:700;margin-bottom:14px;">Repertuar</div>
+      <h2 style="font-family:'Berlin Collection',serif;font-weight:400;font-size:clamp(42px,5vw,68px);margin:0;color:#f0e6d2;">Afisha</h2>
+      <div style="height:30px;width:300px;margin:18px auto 0;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Cpath d='M15 4 L18 12 L26 15 L18 18 L15 26 L12 18 L4 15 L12 12 Z' fill='none' stroke='%23d4af5a' stroke-width='1'/%3E%3C/svg%3E&quot;);background-repeat:repeat-x;background-position:center;opacity:.6;"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:34px;">
+      <sc-for list="{{ plays }}" as="p" hint-placeholder-count="3">
+        <article style="background:linear-gradient(180deg,#170c0e,#100a0b);border:1px solid rgba(212,175,90,.28);display:flex;flex-direction:column;transition:transform .35s ease,box-shadow .35s ease;" style-hover="transform:translateY(-8px);box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 0 1px rgba(212,175,90,.45);">
+          <div style="position:relative;height:380px;">
+            <image-slot id="{{ p.slotId }}" shape="rect" placeholder="{{ p.posterHint }}"></image-slot>
+            <div style="position:absolute;top:14px;left:14px;background:#a01d24;color:#f0e6d2;padding:7px 14px;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;pointer-events:none;">{{ p.genre }}</div>
+          </div>
+          <div style="padding:26px 26px 28px;display:flex;flex-direction:column;gap:10px;flex:1;">
+            <div style="font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:#d4af5a;">{{ p.date }} &#183; {{ p.time }}</div>
+            <h3 style="font-family:'Berlin Collection',serif;font-weight:400;font-size:32px;margin:0;color:#f0e6d2;line-height:1.1;">{{ p.title }}</h3>
+            <div style="font-size:17px;font-style:italic;color:rgba(240,230,210,.65);">{{ p.author }}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:16px;border-top:1px solid rgba(212,175,90,.18);">
+              <span style="font-size:19px;font-weight:600;color:#f0e6d2;">{{ p.price }}</span>
+              <a href="#chipta" style="font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#d4af5a;border-bottom:1px solid rgba(212,175,90,.5);padding-bottom:2px;" style-hover="color:#fff;">Chipta &#8594;</a>
+            </div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="truppa" data-screen-label="Truppa" style="padding:110px 40px;max-width:1240px;margin:0 auto;">
+  <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:54px;">
+    <div>
+      <div style="font-size:15px;letter-spacing:.35em;text-transform:uppercase;color:#a01d24;font-weight:700;margin-bottom:14px;">Aktyorlar</div>
+      <h2 style="font-family:'Berlin Collection',serif;font-weight:400;font-size:clamp(42px,5vw,68px);margin:0;color:#f0e6d2;">Truppa</h2>
+    </div>
+    <p style="font-size:19px;font-style:italic;color:rgba(240,230,210,.6);max-width:380px;margin:0;">Har bir rol ortida — yillar mehnati va sahnaga muhabbat.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:30px;">
+    <sc-for list="{{ actors }}" as="a" hint-placeholder-count="4">
+      <div style="text-align:center;">
+        <div style="position:relative;border-radius:160px 160px 2px 2px;overflow:hidden;height:320px;border:1px solid rgba(212,175,90,.3);">
+          <image-slot id="{{ a.slotId }}" shape="rect" placeholder="Aktyor portreti"></image-slot>
+        </div>
+        <div style="font-family:'Berlin Collection',serif;font-size:26px;color:#f0e6d2;margin-top:18px;">{{ a.name }}</div>
+        <div style="font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:rgba(212,175,90,.75);margin-top:4px;">{{ a.role }}</div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="yangiliklar" data-screen-label="Yangiliklar" style="padding:100px 40px;background:#0e0809;border-top:1px solid rgba(212,175,90,.18);">
+  <div style="max-width:1000px;margin:0 auto;">
+    <div style="font-size:15px;letter-spacing:.35em;text-transform:uppercase;color:#a01d24;font-weight:700;margin-bottom:14px;">Media</div>
+    <h2 style="font-family:'Berlin Collection',serif;font-weight:400;font-size:clamp(42px,5vw,68px);margin:0 0 46px;color:#f0e6d2;">Yangiliklar</h2>
+    <div style="display:flex;flex-direction:column;">
+      <sc-for list="{{ news }}" as="n" hint-placeholder-count="3">
+        <a href="#yangiliklar" style="display:grid;grid-template-columns:130px 1fr auto;gap:28px;align-items:center;padding:26px 10px;border-top:1px solid rgba(212,175,90,.22);color:#f0e6d2;" style-hover="background:rgba(212,175,90,.05);color:#f0e6d2;">
+          <div style="font-family:'Berlin Collection',serif;font-size:22px;color:#d4af5a;">{{ n.date }}</div>
+          <div>
+            <div style="font-size:23px;font-weight:600;line-height:1.3;">{{ n.title }}</div>
+            <div style="font-size:17px;color:rgba(240,230,210,.6);margin-top:4px;">{{ n.sub }}</div>
+          </div>
+          <div style="font-size:26px;color:#a01d24;">&#8594;</div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="chipta" data-screen-label="Chipta CTA" style="position:relative;padding:120px 40px;text-align:center;background:radial-gradient(ellipse 80% 90% at 50% 50%,rgba(160,29,36,.5),transparent 75%),linear-gradient(180deg,#150a0c,#1d0d10,#150a0c);border-top:1px solid rgba(212,175,90,.25);border-bottom:1px solid rgba(212,175,90,.25);overflow:hidden;">
+  <div style="position:absolute;inset:0;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cpath d='M28 8 L33 23 L48 28 L33 33 L28 48 L23 33 L8 28 L23 23 Z' fill='none' stroke='%23d4af5a' stroke-width='.8'/%3E%3C/svg%3E&quot;);opacity:.08;pointer-events:none;"></div>
+  <div style="position:relative;">
+    <div style="font-size:15px;letter-spacing:.35em;text-transform:uppercase;color:#d4af5a;font-weight:700;margin-bottom:16px;animation:glowPulse 4s ease-in-out infinite;">Bugun oqshom sahnada</div>
+    <h2 style="font-family:'Berlin Collection',serif;font-weight:400;font-size:clamp(44px,6vw,84px);margin:0 auto;max-width:900px;line-height:1.05;color:#f0e6d2;text-shadow:0 0 50px rgba(160,29,36,.6);">O&#8217;z o&#8217;rningizni band qiling</h2>
+    <p style="font-size:21px;color:rgba(240,230,210,.75);margin:22px auto 40px;max-width:560px;">Chiptalar onlayn va teatr kassasida sotuvda. Eng yaxshi o&#8217;rinlar tez band bo&#8217;ladi.</p>
+    <a href="#kontakt" style="display:inline-block;background:linear-gradient(135deg,#b8232b,#8a161c);color:#fff;padding:20px 56px;font-size:22px;font-weight:700;letter-spacing:.12em;border:1px solid rgba(212,175,90,.5);border-radius:2px;box-shadow:0 12px 44px rgba(160,29,36,.5);" style-hover="box-shadow:0 12px 60px rgba(184,35,43,.75);transform:translateY(-2px);">Chipta sotib olish</a>
+  </div>
+</section>
+
+<footer id="kontakt" data-screen-label="Kontakt" style="padding:90px 40px 40px;background:#090506;">
+  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);gap:60px;">
+    <div>
+      <img src="uploads/Oq%20fonda%20ishlatish%20uchun%20yozuvli.png" alt="Millat teatri" style="width:220px;filter:brightness(0) invert(1);mix-blend-mode:screen;opacity:.95;">
+      <p style="font-size:18px;color:rgba(240,230,210,.6);line-height:1.6;max-width:320px;margin-top:20px;">Sahna — millat ko&#8217;zgusi. Har oqshom yangi hikoya.</p>
+    </div>
+    <div>
+      <div style="font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:#d4af5a;margin-bottom:20px;">Manzil</div>
+      <div style="font-size:19px;line-height:1.8;color:rgba(240,230,210,.8);">Toshkent shahri,<br>Navoiy ko&#8217;chasi, 1-uy<br><br>Kassa: har kuni 10:00 – 19:00<br>Tel: +998 71 200 00 00</div>
+    </div>
+    <div>
+      <div style="font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:#d4af5a;margin-bottom:20px;">Ijtimoiy tarmoqlar</div>
+      <div style="display:flex;flex-direction:column;gap:12px;font-size:19px;">
+        <a href="#kontakt">Instagram</a>
+        <a href="#kontakt">Telegram</a>
+        <a href="#kontakt">YouTube</a>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1240px;margin:60px auto 0;padding-top:24px;border-top:1px solid rgba(212,175,90,.18);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:15px;color:rgba(240,230,210,.45);">
+    <span>&#169; 2026 Millat teatri. Barcha huquqlar himoyalangan.</span>
+    <span>O&#8217;zbekiston Respublikasi Madaniyat vazirligi tasarrufida</span>
+  </div>
+</footer>
+
+<x-import component-from-global-scope="image-slot" from="./image-slot.js" style="display:none" hint-size="0,0"></x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;curtainIntro&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { lang: 'UZ', curtainDone: false };
+  componentDidMount() {
+    this._t = setTimeout(() => this.setState({ curtainDone: true }), 3400);
+  }
+  componentWillUnmount() { clearTimeout(this._t); }
+  renderVals() {
+    const langs = ['UZ', '\u040e\u0417', 'RU', 'EN'].map(l => ({
+      label: l,
+      bg: this.state.lang === l ? '#d4af5a' : 'transparent',
+      fg: this.state.lang === l ? '#1a0d0f' : 'rgba(240,230,210,.7)',
+      pick: () => this.setState({ lang: l })
+    }));
+    const plays = [
+      { slotId: 'poster-romeo', posterHint: 'Romeo va Julietta afishasi', genre: 'Fojia', date: '18-iyul', time: '19:00', title: 'Romeo va Julietta', author: 'Uilyam Shekspir', price: '80 000 so\u02bcmdan' },
+      { slotId: 'poster-jinoyat', posterHint: 'Jinoyat va Jazo afishasi', genre: 'Drama', date: '24-iyul', time: '18:30', title: 'Jinoyat va Jazo', author: 'Fyodor Dostoyevskiy', price: '70 000 so\u02bcmdan' },
+      { slotId: 'poster-otkan', posterHint: 'O\u02bctkan kunlar afishasi', genre: 'Milliy roman', date: '31-iyul', time: '19:00', title: 'O\u02bctkan kunlar', author: 'Abdulla Qodiriy', price: '75 000 so\u02bcmdan' }
+    ];
+    return {
+      showCurtain: (this.props.curtainIntro ?? true) && !this.state.curtainDone,
+      skipCurtain: () => this.setState({ curtainDone: true }),
+      langs,
+      marqueeItems: ['Romeo va Julietta', 'Jinoyat va Jazo', 'O\u02bctkan kunlar', 'Hamlet', 'Boy ila xizmatchi', 'Romeo va Julietta', 'Jinoyat va Jazo', 'O\u02bctkan kunlar', 'Hamlet', 'Boy ila xizmatchi'],
+      stats: [
+        { num: '12+', label: 'Yillik tajriba' },
+        { num: '40+', label: 'Spektakl' },
+        { num: '25', label: 'Aktyor' }
+      ],
+      plays,
+      actors: [
+        { slotId: 'actor-1', name: 'Aktyor ismi', role: 'Yetakchi aktyor' },
+        { slotId: 'actor-2', name: 'Aktrisa ismi', role: 'Yetakchi aktrisa' },
+        { slotId: 'actor-3', name: 'Aktyor ismi', role: 'Xarakterli rollar' },
+        { slotId: 'actor-4', name: 'Rejissyor ismi', role: 'Bosh rejissyor' }
+      ],
+      news: [
+        { date: '12-iyul', title: '\u201cO\u02bctkan kunlar\u201d premyerasi anshlag bilan o\u02bctdi', sub: 'Yangi mavsumning ilk premyerasi to\u02bcliq zal oldida namoyish etildi' },
+        { date: '05-iyul', title: 'Yangi mavsum repertuari e\u2019lon qilindi', sub: '2026\u20132027 mavsumida 8 ta yangi sahna asari' },
+        { date: '28-iyun', title: 'Truppaga yosh aktyorlar qabul qilinmoqda', sub: 'Tanlov 1-avgustgacha davom etadi' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
