@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LANGS, NAV_ITEMS } from '../data/content.js';
 
 const RIM = ['I', 'II', 'III', 'IV', 'V', 'VI'];
@@ -24,14 +24,18 @@ export default function Navbar() {
   const [ochiq, setOchiq] = useState(false);
   const [ochiqBand, setOchiqBand] = useState(null);
 
+  useEffect(() => {
+    document.documentElement.classList.toggle('menyu-qulf', ochiq);
+    return () => document.documentElement.classList.remove('menyu-qulf');
+  }, [ochiq]);
+
   const yop = () => {
     setOchiq(false);
-    document.body.style.overflow = '';
+    setOchiqBand(null);
   };
   const toggle = () => {
-    const yangi = !ochiq;
-    setOchiq(yangi);
-    document.body.style.overflow = yangi ? 'hidden' : '';
+    setOchiq((oldin) => !oldin);
+    setOchiqBand(null);
   };
 
   return (

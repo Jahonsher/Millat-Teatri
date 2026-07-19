@@ -27,7 +27,7 @@ export default function Founder() {
               </text>
             </svg>
             <div className="halqa">
-              <span className="yuz">🎭</span>
+              <img className="yuz-rasm" src="/uploads/olmas-temur.jpg" alt="O'lmas Temur portreti" />
             </div>
           </div>
           <div className="gazeta-matn">

@@ -8,7 +8,6 @@ import Jamoa from './components/Jamoa.jsx';
 import Matbuot from './components/Matbuot.jsx';
 import ChiptaCTA from './components/ChiptaCTA.jsx';
 import Footer from './components/Footer.jsx';
-import BottomPanel from './components/BottomPanel.jsx';
 import { useReveal, useStatCounters, useTapSparkle } from './hooks/usePageEffects.js';
 import { useMagicWand } from './hooks/useMagicWand.js';
 
@@ -32,7 +31,6 @@ export default function App() {
         <ChiptaCTA />
       </main>
       <Footer />
-      <BottomPanel />
     </>
   );
 }
