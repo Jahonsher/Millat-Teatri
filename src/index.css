@@ -64,7 +64,9 @@ button { font-family: inherit; background: none; border: none; color: inherit; c
 @keyframes markazKetdi { to { opacity: 0; transform: scale(1.15); } }
 #parda .logo { width: 84px; margin: 0 auto 18px; filter: brightness(0) invert(1); opacity: .95; }
 #parda h1 { font-family: 'Berlin Collection', 'Playfair Display', serif; font-weight: 400; font-size: clamp(30px, 9vw, 52px);
-  letter-spacing: .12em; text-shadow: 0 0 40px rgba(212,175,90,.55); }
+  letter-spacing: .12em; text-shadow: 0 0 40px rgba(212,175,90,.55);
+  opacity: 0; transition: opacity .4s ease; }
+#parda h1.shrift-tayyor { opacity: 1; }
 #parda .satr { margin-top: 14px; font-size: 13px; letter-spacing: .42em; text-transform: uppercase; color: rgba(240,230,210,.55); }
 
 /* ============ NAVBAR ============ */

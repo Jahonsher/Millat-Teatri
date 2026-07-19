@@ -3,6 +3,22 @@ import { useEffect, useState } from 'react';
 export default function Curtain() {
   const [ochil, setOchil] = useState(false);
   const [ketdi, setKetdi] = useState(false);
+  const [shrift, setShrift] = useState(false);
+
+  useEffect(() => {
+    let tirik = true;
+    if (document.fonts?.load) {
+      Promise.race([
+        document.fonts.load('1em "Berlin Collection"'),
+        new Promise((r) => setTimeout(r, 2500)),
+      ]).then(() => tirik && setShrift(true));
+    } else {
+      setShrift(true);
+    }
+    return () => {
+      tirik = false;
+    };
+  }, []);
 
   useEffect(() => {
     const kam = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -28,7 +44,7 @@ export default function Curtain() {
           src="/uploads/Oq%20fonda%20ishlatish%20uchun%20yozuvsiz.png"
           alt=""
         />
-        <h1>Millat teatri</h1>
+        <h1 className={shrift ? 'shrift-tayyor' : ''}>Millat teatri</h1>
         <div className="satr">Parda ochilmoqda</div>
       </div>
     </div>
